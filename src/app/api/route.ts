@@ -1,5 +1,5 @@
+import { getProducts } from "app/services/shopify/products"
 export async function GET() {
-  const message = "Hello World"
-
-  return Response.json({ message })
+  const products = await getProducts()
+  return Response.json({ products })
 }
