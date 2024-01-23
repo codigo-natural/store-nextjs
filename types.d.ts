@@ -9,7 +9,7 @@ type ProductType = {
   description: string;
   price: number;
   image: string;
-  quancity: number;
+  quantity: number;
   handle: string;
   tags: string;
 };
