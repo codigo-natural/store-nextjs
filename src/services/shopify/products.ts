@@ -4,14 +4,13 @@ import { shopifyUrls } from "./urls";
 export const getProducts = async (id?: string): Promise<ProductType[]> => {
   try {
     const apiUrl = id ? `${shopifyUrls.products.all}?ids=${id}` : shopifyUrls.products.all
-    const response = await fetch(apiUrl,
-      {
-        headers: new Headers({
-          "X-Shopify-Access-Token": env.SHOPIFY_TOKEN,
-        }),
-      }
-    );
-    const { products } = await response.json();
+    const response = await fetch(apiUrl, {
+      headers: new Headers({
+        'X-Shopify-Access-Token': env.SHOPIFY_TOKEN
+      })
+    })
+    const { products } = await response.json()
+
     const transformedProducts = products.map((product: any) => {
       return {
         id: product.id,
@@ -25,11 +24,11 @@ export const getProducts = async (id?: string): Promise<ProductType[]> => {
         tags: product.tags,
       }
     })
-    return transformedProducts;
+    return transformedProducts
   } catch (error) {
     console.log(error)
   }
-};
+}
 
 export const getMainProducts = async () => {
   const response = await fetch(shopifyUrls.products.mainProducts, {
@@ -43,5 +42,6 @@ export const getMainProducts = async () => {
   })
 
   const { products } = await response.json()
+
   return products
 }
