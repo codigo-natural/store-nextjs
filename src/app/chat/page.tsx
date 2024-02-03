@@ -1,10 +1,16 @@
 import { Chat } from "app/components/chat/Chat";
+import { getProducts } from "app/services/shopify/products";
+import { createAgent } from "app/utils/gemini/createAgent";
 
-export default function ChatPage() {
+export default async function ChatPage() {
+  const products = await getProducts()
+  const productTitles = products.map((product) => product.title)
+  const flatProductTitles = productTitles.join("\n")
+  const agent = createAgent(flatProductTitles)
   return (
     <>
       <h1>Chat</h1>
-      <Chat />
+      <Chat agent={agent} />
     </>
   );
 }
