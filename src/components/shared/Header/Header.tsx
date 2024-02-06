@@ -1,6 +1,6 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { validateAccessToken } from "app/utils/auth/validateAccesToken";
+import { validateAccessToken } from "app/utils/auth/validateAccessToken";
 import styles from "./Header.module.sass";
 
 const NoSSRShoppingCart = dynamic(() => import("../ShoppingCart"), {
