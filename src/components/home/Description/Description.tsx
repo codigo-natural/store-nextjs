@@ -10,13 +10,13 @@ const PLACEHOLDER_IMAGE =
 export const Description = () => {
   const [hasBorder, setBorder] = useState(false);
 
-  const handleClick = () => setBorder(!hasBorder)
+  const handleClick = () => setBorder(!hasBorder);
 
-  const cx = classNames.bind(styles)
-  
-  const buttonStyles = cx('Description__button', {
-    'Description__button--border': hasBorder,
-  })
+  const cx = classNames.bind(styles);
+
+  const buttonStyles = cx("Description__button", {
+    "Description__button--border": hasBorder,
+  });
 
   return (
     <section className={styles.Description}>
@@ -35,8 +35,9 @@ export const Description = () => {
       <div className={styles.Description__text}>
         <h2>Description</h2>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-          quod.
+          Future World: Your Gateway to Tomorrow&apos;s Tech! Dive into a world
+          of cutting-edge gadgets and gear. Stay ahead of the curve and redefine
+          your digital lifestyle with us.
         </p>
       </div>
     </section>

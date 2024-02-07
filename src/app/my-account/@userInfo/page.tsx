@@ -1,14 +1,17 @@
 import { validateAccessToken } from "app/utils/auth/validateAccessToken";
 
+export const dynamic = 'force-static'
+
 export default async function MyAccountPage() {
   const customer = await validateAccessToken();
+  console.log(customer)
 
   return (
     <div>
+      <h2>Account info</h2>
       <section>
-        <h2>Your info</h2>
-        <h1>Bienvenido {customer?.name}</h1>
-        <p>email: {customer.email}</p>
+        <h1>Nombre: {customer?.firstName}</h1>
+        <p>email: {customer?.email}</p>
       </section>
     </div>
   );

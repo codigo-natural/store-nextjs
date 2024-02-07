@@ -9,7 +9,7 @@ const NoSSRShoppingCart = dynamic(() => import("../ShoppingCart"), {
 
 export const Header = async () => {
   const customer = await validateAccessToken();
-  
+
   return (
     <header className={styles.Header}>
       <nav>
@@ -24,7 +24,7 @@ export const Header = async () => {
       </nav>
       <div className={styles.Header__user}>
         {customer?.firstName ? (
-          <p>Hola! {customer.firstName}</p>
+          <Link href="/my-account">Hola! {customer.firstName}</Link>
         ) : (
           <Link href="/login">Login</Link>
         )}
