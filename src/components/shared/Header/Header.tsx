@@ -26,7 +26,10 @@ export const Header = async () => {
         {customer?.firstName ? (
           <Link href="/my-account">Hola! {customer.firstName}</Link>
         ) : (
-          <Link href="/login">Login</Link>
+          <>
+            <Link href="/login">Login</Link>
+            <Link href="/signup">Sign Up</Link>
+          </>
         )}
         <NoSSRShoppingCart />
       </div>
