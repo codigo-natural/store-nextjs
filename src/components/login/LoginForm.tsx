@@ -2,15 +2,22 @@
 
 import { handleLogin } from "app/actions";
 import styles from "./LoginForm.module.sass";
+import { FormEvent, useState } from "react";
+import { LoaderButtons } from "../shared/Loader/LoaderButtons";
+import { ButtonForm } from "../shared/ButtonForm/ButtonForm";
 
-export const LoginForm = () => {
-  const handleSubmit = async (event: {
-    target: any;
-    preventDefault: () => void;
-  }) => {
-    const formData = new FormData(event.target);
+export const LoginForm: React.FC = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await handleLogin(formData);
+    setIsLoading(true);
+    const formData = new FormData(event.currentTarget);
+    try {
+      await handleLogin(formData);
+    } catch (error) {
+      console.log("Login Error:", error);
+    }
   };
 
   return (
@@ -24,7 +31,9 @@ export const LoginForm = () => {
           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
         />
         <input type="password" name="password" placeholder="password" />
-        <input type="submit" name="submit" value="Login" />
+        <ButtonForm type="submit" disabled={isLoading}>
+          {isLoading ? <LoaderButtons /> : "Login"}
+        </ButtonForm>
       </form>
     </div>
   );

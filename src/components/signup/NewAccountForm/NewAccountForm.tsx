@@ -1,19 +1,28 @@
 "use client";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import styles from "./NewAccountForm.module.sass";
 import { handleCreateUser } from "app/actions";
+import { ButtonForm } from "app/components/shared/ButtonForm/ButtonForm";
+import { LoaderButtons } from "app/components/shared/Loader/LoaderButtons";
+
+type CustomError = {
+  errors: string[];
+};
 
 export const NewAccountForm = () => {
   const [errors, setErrors] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleSubmit = async (event: {
-    target: any;
-    preventDefault: () => void;
-  }) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    await handleCreateUser(formData);
+    setLoading(true);
+    setErrors([]);
+    const formData = new FormData(event.currentTarget);
+    try {
+      await handleCreateUser(formData);
+    } catch (error) {
+      setErrors((error as CustomError).errors);
+    }
   };
 
   return (
@@ -24,18 +33,21 @@ export const NewAccountForm = () => {
           type="text"
           name="firstName"
           placeholder="Name"
+          required
           disabled={loading}
         />
         <input
           type="text"
           name="lastName"
           placeholder="Lastname"
+          required
           disabled={loading}
         />
         <input
           type="text"
           name="email"
           placeholder="email"
+          required
           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
           disabled={loading}
         />
@@ -50,20 +62,19 @@ export const NewAccountForm = () => {
           type="password"
           name="password"
           placeholder="password"
+          required
           disabled={loading}
         />
         <input
           type="password"
           name="password_confirmation"
           placeholder="re-type password"
+          required
           disabled={loading}
         />
-        <input
-          type="submit"
-          name="submit"
-          value="Crear cuenta"
-          disabled={loading}
-        />
+        <ButtonForm type="submit" disabled={loading}>
+          {loading ? <LoaderButtons /> : "Crear cuenta"}
+        </ButtonForm>
       </form>
       {errors.length > 0 && (
         <div>
